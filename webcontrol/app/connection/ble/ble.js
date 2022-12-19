@@ -1,5 +1,5 @@
-const FRSKY_SERVICE_ID = 0xFFF0;
-const FRSKY_CHARACTERISTIC_ID = 0x0000FFF6;
+const BLE_SERVICES_ID = [0xFFF0, 0xFFE0];
+const BLE_CHARACTERISTICS_ID = [0x0000FFF6, 0x0000FFE1];
 
 export class BLE extends EventTarget{
     constructor() {
@@ -12,11 +12,25 @@ export class BLE extends EventTarget{
 
     async connect() {
        
-        this._device = await navigator.bluetooth.requestDevice({ filters: [{ services: [FRSKY_SERVICE_ID] }] });
+        this._device = await navigator.bluetooth.requestDevice({ filters: [{ services: [0xFFF0] }, {services: [0xFFE0]}] });
         this._server = await this._device.gatt.connect();
-        this._service = await this._server.getPrimaryService(FRSKY_SERVICE_ID);
-        this._characteristic = await this._service.getCharacteristic(FRSKY_CHARACTERISTIC_ID);
+        const services = await this._server.getPrimaryServices();
+        if (!services.length) {
+            this.dispatchEvent(new CustomEvent('error'));
+            return;
+        }
 
+        this._service = services[0];
+        console.log(this._service);
+        const characteristics = await this._service.getCharacteristics();
+        console.log(characteristics);
+
+        this._characteristic = characteristics.reverse().find(characteristic => characteristic.properties.notify === true);
+        console.log(this._characteristic);
+        if (!this._characteristic) {
+            this.dispatchEvent(new CustomEvent('error'));
+            return;
+        }
         this._characteristic.oncharacteristicvaluechanged = (e) => {
             this.dispatchEvent(new CustomEvent('data', {detail: new Uint8Array(e.currentTarget.value.buffer) }));
         }

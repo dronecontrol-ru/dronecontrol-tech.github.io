@@ -277,7 +277,9 @@ div, section {
 .button_hidden {
     display: none;
 }
-
+.button_hidden_always {
+  display: none;
+}
 
 .header {
     padding: 10px;

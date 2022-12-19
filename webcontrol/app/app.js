@@ -24,7 +24,7 @@ export class App {
         });
 
         this._connection = new Connection();
-
+        this._tags.button_connect_serial.classList.toggle('button_hidden_always', !this._connection.isAvailable('serial'));
         this._connection.addEventListener('connected', () => {
             this._tags.button_connect_ble.classList.add('button_hidden');
             this._tags.button_connect_serial.classList.add('button_hidden');

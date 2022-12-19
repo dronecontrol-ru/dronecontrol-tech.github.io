@@ -33,4 +33,11 @@ export class Connection extends EventTarget {
     send(buffer) {
         this._connection.send(buffer);
     }
+
+    isAvailable(type) {
+        if (type === 'serial') {
+            return Serial.isAvailable();
+        }
+        return true;
+    }
 }

@@ -63,4 +63,10 @@ export class Serial extends EventTarget {
 
         return result;
     }
+
+    
+}
+
+Serial.isAvailable = function() {
+    return !!navigator.serial;
 }
