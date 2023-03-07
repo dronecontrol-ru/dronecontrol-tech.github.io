@@ -1,10 +1,9 @@
 .sensor-group {
-    border: 1px auto #ECEFF1;
-    margin-bottom: 10px;
+    background-color: #FFF;
 }
 
 .sensor-group__title {
-    padding: 20px;
+    padding: 10px 20px;
     background-color: #ECEFF1;
     position: sticky;
     z-index: 2;
@@ -16,6 +15,7 @@
 .sensor {
     display: flex;
     padding: 5px;
+    background-color: white;
 }
 
 
@@ -116,8 +116,20 @@
     .widget-value {
         padding: 1px 3px;
     }
+    .widget-value__title {
+        padding: 0;
+        font-size: 10px;
+        line-height: 10px;
+    }
+
     .widget-value__value {
-        font-size: 16px;
+        font-size: 14px;
+    }
+    .widget-value__unit {
+        padding: 0;
+        font-size: 10px;
+        line-height: 10px;
+        text-align: right;
     }
 }
 /* cyrillic-ext */
@@ -466,6 +478,7 @@ section {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    transition: margin-left 0.3s;
 }
 
 
@@ -556,6 +569,7 @@ section {
 .section {
     display: flex;
     flex: 1;
+    overflow: hidden;
 }
 
 .article {
@@ -569,6 +583,7 @@ section {
 }
 
 @media (max-width: 1024px) {
+
     .header__button_menu {
         display: block;
     }
@@ -578,14 +593,16 @@ section {
     .nav {
         margin-left: -250px;
         z-index: 20;
-        top: 0;
-        bottom: 0;
-        position: absolute;
+        min-height: 100vh;
+        height: 100vh;
     }
 
 
     .nav_visible {
         margin-left: 0;
+    }
+    .nav_visible + .main {
+        margin-left: -250px;
     }
 }
 
@@ -595,4 +612,4 @@ section {
     }
 }
 
-/*# sourceMappingURL=main.34111e3a975d03a9f210.css.map*/
+/*# sourceMappingURL=main.4a3235d4c61e62299edb.css.map*/
